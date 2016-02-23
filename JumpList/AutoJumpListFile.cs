@@ -22,11 +22,17 @@ namespace JumpList
 
         public string SourceFile { get; }
 
-        private OleCfFile _oleContainer;
+        private readonly OleCfFile _oleContainer;
 
         public AutoJumpListFile(byte[] rawBytes, string sourceFile)
         {
             SourceFile = sourceFile;
+
+            var appid = sourceFile.Split('.').FirstOrDefault();
+            if (appid != null)
+            {
+                var aid = new AppIdInfo(appid);
+            }
 
             _oleContainer = new OleCfFile(rawBytes, sourceFile);
 
@@ -67,7 +73,7 @@ namespace JumpList
 
                 if (lnkBytes[0] == 0x4c)
                 {
-                    var fName = $"AppId_{AppId}_DirName_{directoryItem.DirectoryName}}.lnk";
+                    var fName = $"AppId_{AppId}_DirName_{directoryItem.DirectoryName}.lnk";
                     var outPath = Path.Combine(outDir, fName);
 
                     File.WriteAllBytes(outPath,lnkBytes);
@@ -79,12 +85,22 @@ namespace JumpList
     public class AppIdInfo
     {
         public string AppId { get; }
-        public string Description { get; }
+        public string Description =>
+        GetDescription();
 
-        public AppIdInfo(string appId, string desc)
+        public AppIdInfo(string appId)
         {
             AppId = appId;
-            Description = desc;
+            
+        }
+
+        public string GetDescription()
+        {
+            var desc = "Unknown AppId";
+
+            //do lookup here
+
+            return desc;
         }
     }
 
