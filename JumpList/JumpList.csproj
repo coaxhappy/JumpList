@@ -52,11 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppIdInfo.cs" />
     <Compile Include="Automatic\AutomaticDestination.cs" />
     <Compile Include="Automatic\DestList.cs" />
     <Compile Include="Automatic\DestListEntry.cs" />
     <Compile Include="Automatic\DestListHeader.cs" />
     <Compile Include="Custom\CustomDestination.cs" />
+    <Compile Include="Custom\Entry.cs" />
     <Compile Include="JumpList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
