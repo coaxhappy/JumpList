@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using ExtensionBlocks;
 
 namespace JumpList.Automatic
 {
@@ -63,16 +66,66 @@ namespace JumpList.Automatic
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
                 Unknown4 = BitConverter.ToInt32(rawBytes, 124);
 
-                var v3PathLen = BitConverter.ToInt16(rawBytes, 128);
+                var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
-                    //rawBytes.Length - 130).Split('\0').First();
             }
             else
             {
-                var v1PathLen = BitConverter.ToInt16(rawBytes, 112);
+                var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
 
-                Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);// rawBytes.Length - 114).Split('\0').First();
+                Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
+
+            }
+
+            if (Path.StartsWith("knownfolder"))
+            {
+                var kfId = Path.Split('{').Last();
+                kfId = kfId.Substring(0, kfId.Length - 1);
+
+                var fName = Utils.GetFolderNameFromGuid(kfId);
+
+                Path = $"{Path} ==> {fName}";
+            }
+
+            if (Path.StartsWith("::"))
+            {
+               var pathSegs = Path.Split('\\');
+
+                var newPathSegs = new List<string>();
+
+                foreach (var pathSeg in pathSegs)
+                {
+                    var newPath = string.Empty;
+                    try
+                    {
+                        var regexObj = new Regex(@"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b|\(\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\)|\{\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\}", RegexOptions.IgnoreCase);
+                        var matchResults = regexObj.Match(pathSeg);
+
+
+                        if (matchResults.Success)
+                        {
+                            var pguid = matchResults.Groups[0].Value;
+                            pguid = pguid.Substring(1, pguid.Length - 2);
+                            var pName = Utils.GetFolderNameFromGuid(pguid);
+                            newPathSegs.Add(pName);
+                        }
+                        else
+                        {
+                            newPathSegs.Add(pathSeg);
+                        }
+
+                      
+                    }
+                    catch (ArgumentException ex)
+                    {
+                        // Syntax error in the regular expression
+                    }
+                }
+
+                Path = $"{Path} ==> {string.Join("\\",newPathSegs)}";
+
+
             }
 
             var tempMac = FileDroid.ToString().Split('-').Last();

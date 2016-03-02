@@ -13,7 +13,7 @@ namespace JumpList.Custom
     {
         public string Name { get; }
         public int Unknown0 { get; }
-        public int Unknown1 { get; }
+        public float Rank { get; }
         public int Unknown2 { get; }
         public int HeaderType { get; }
 
@@ -27,7 +27,7 @@ namespace JumpList.Custom
             LnkFiles = new List<LnkFile>();
 
             Unknown0 = BitConverter.ToInt32(rawBytes, 0);
-            Unknown1 = BitConverter.ToInt32(rawBytes, 4);
+            Rank = BitConverter.ToSingle(rawBytes, 4);
             Unknown2 = BitConverter.ToInt32(rawBytes, 8);
             HeaderType = BitConverter.ToInt32(rawBytes, 12);
 
@@ -83,15 +83,10 @@ namespace JumpList.Custom
 
                 Buffer.BlockCopy(rawBytes, start, bytes, 0, bytes.Length);
 
-                if (bytes[0] != 0x4c)
-                {
-                    Debug.WriteLine(1);
-                }
-
-                var outPath = @"C:\Temp\!!!!!!!out";
-                var outName = Path.Combine(outPath, $"Offset_0x{lnkOffset:X}.lnk");
-
-                File.WriteAllBytes(outName,bytes);
+//                var outPath = @"C:\Temp\!!!!!!!out";
+//                var outName = Path.Combine(outPath, $"Offset_0x{lnkOffset:X}.lnk");
+//
+//                File.WriteAllBytes(outName,bytes);
 
                 var l = new LnkFile(bytes, $"Offset_0x{lnkOffset:X}.lnk");
 
@@ -109,7 +104,7 @@ namespace JumpList.Custom
 
 
             sb.AppendLine($"unknown0: {Unknown0}");
-            sb.AppendLine($"unknown1: {Unknown1}");
+            sb.AppendLine($"Rank: {Rank:F4}");
             sb.AppendLine($"unknown2: {Unknown2}");
             sb.AppendLine($"HeaderType: {HeaderType}");
             if (Name.Length > 0)

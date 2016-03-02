@@ -19,14 +19,14 @@ namespace JumpList.Custom
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"Source: {SourceFile}");
+            sb.AppendLine($">>>>>>Source: {SourceFile} <<<<<<<");
             sb.AppendLine($"AppId: {AppId}");
             sb.AppendLine($"Total entries: {Entries.Count}");
 
             var entryNum = 0;
             foreach (var entry in Entries)
             {
-                sb.AppendLine($"Entry #: {entryNum}");
+                sb.AppendLine($"Entry #: {entryNum}, Rank: {entry.Rank}");
 
                 if (entry.Name.Length > 0)
                 {
@@ -49,9 +49,6 @@ namespace JumpList.Custom
         }
 
         private readonly byte[] footerBytes = { 0xAB, 0xFB, 0xBF, 0xBA };
-        private readonly byte[] lnkHeaderBytes = { 0x4C, 0x00, 0x00, 0x00, 0x01, 0x14, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46 };
-        
-      
 
         public List<Entry> Entries { get; } 
 
@@ -122,9 +119,13 @@ namespace JumpList.Custom
             
             foreach (var byteChunk in byteChunks)
             {
-                var e = new Entry(byteChunk);
+                if (byteChunk.Length > 30)
+                {
+                    var e = new Entry(byteChunk);
 
-                Entries.Add(e);
+                    Entries.Add(e);
+                }
+                
             }
         }
 

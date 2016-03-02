@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentAssertions;
 using JumpList.Automatic;
 using JumpList.Custom;
 using NUnit.Framework;
@@ -25,6 +26,8 @@ namespace JumpList.Test
 
         // A bunch of good jump lists that I don't want to share =)
         public static string LocalPath = @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent";
+        public static string LocalPath2 = @"C:\Users\e\Desktop\ITA_JumpLists";
+        public static string LocalPath3 = @"C:\Users\e\Desktop\MTF";
 
         private readonly List<string> _allPaths = new List<string>
         {
@@ -35,57 +38,48 @@ namespace JumpList.Test
             Win7Path,
             Win80Path,
             Win81Path,
-            LocalPath
+            LocalPath,
+            LocalPath2,
+            LocalPath3
             //Win2012Path,
             //Win2012R2Path,
         };
 
-      //  [Test]
+        [Test]
         public void MainTest()
         {
+
+          //  var r2 = File.ReadAllBytes(@"C:\Users\e\Desktop\ITA_JumpLists\PC2_Win10\AutomaticDestinations\5f7b5f1e01b83767.automaticDestinations-ms");
+           // var aa = new AutomaticDestination(r2, @"C:\Users\e\Desktop\ITA_JumpLists\PC2_Win10\AutomaticDestinations\5f7b5f1e01b83767.automaticDestinations-ms");
+
             foreach (var allPath in _allPaths)
             {
-                foreach (var fname in Directory.GetFiles(allPath, "*.automaticDestinations-ms",SearchOption.AllDirectories))
+                foreach (var fname in Directory.GetFiles(allPath, "*.automaticDestinations-ms", SearchOption.AllDirectories))
                 {
-                    Debug.WriteLine(fname);
+                 //   Debug.WriteLine(fname);
                     var raw = File.ReadAllBytes(fname);
 
                     var a = new AutomaticDestination(raw, fname);
 
-                    Debug.WriteLine(a.AppId);
+                    a.DestListCount.Should().Be(a.DestListEntries.Count);
 
-//                    if (o.DestList != null)
-//                    {
-//                        Debug.WriteLine(
-//                            $"\r\nDestLists. Total entries: {o.DestList.Entries.Count}, Header entry count: {o.DestList.Header.NumberOfEntries}");
-//                        foreach (var destListEntry in o.DestList.Entries)
-//                        {
-//                            Debug.WriteLine(destListEntry);
-//
-//                            var dlnk =
-//                                o.DirectoryItems.SingleOrDefault(
-//                                    t => t.DirectoryName == destListEntry.EntryNumber.ToString("X"));
-//
-//                            if (dlnk != null)
-//                            {
-//                                Debug.WriteLine($"Found directory entry: {dlnk}");
-//
-//                                var dlnkB = o.GetPayloadForDirectory(dlnk);
-//
-//                                if (dlnkB[0] == 0x4c)
-//                                {
-//                                    Debug.WriteLine("Ya, its a lnk file\r\n");
-//                                }
-//                                else
-//                                {
-//                                    Debug.WriteLine("Nooooo");
-//                                }
-//                            }
-//                        }
-//                    }
+                    Debug.WriteLine(a);
+                    Debug.WriteLine("-----------------------------------------------------------------");
+
+
 
                 }
             }
+        }
+
+        [Test]
+        public void OneOff()
+        {
+            var raw = File.ReadAllBytes(@"C:\Temp\KROLLa4a5324453625195.automaticDestinations-ms");
+
+            var aaaa = new AutomaticDestination(raw, @"C:\Temp\KROLLa4a5324453625195.automaticDestinations-ms");
+
+            Debug.WriteLine(aaaa);
         }
 
 
@@ -93,16 +87,14 @@ namespace JumpList.Test
         public void CustomTests()
         {
 
-            var raw1 = File.ReadAllBytes(@"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\5d696d521de238c3.customDestinations-ms");
-
-            var c1 = new CustomDestination(raw1, @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\5d696d521de238c3.customDestinations-ms");
-
-            var outDir = @"C:\Temp\!!!!!!!out";
+//            var raw1 = File.ReadAllBytes(@"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\5d696d521de238c3.customDestinations-ms");
+//
+//            var c1 = new CustomDestination(raw1, @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\CustomDestinations\5d696d521de238c3.customDestinations-ms");
+//
+//            var outDir = @"C:\Temp\!!!!!!!out";
 
             
 
-//
-//            return;
 
             foreach (var allPath in _allPaths)
             {
@@ -112,7 +104,10 @@ namespace JumpList.Test
 
                     try
                     {
+                        Debug.WriteLine($"<<<<<< GOING TO PROCESS: {fname}");
                         var c = new CustomDestination(raw, fname);
+
+
 
                         Debug.WriteLine(c);
                         Debug.WriteLine("-----------<<<<>>>>-----------------");
