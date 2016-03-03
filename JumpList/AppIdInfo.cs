@@ -29,7 +29,9 @@ namespace JumpList
 
             switch (appId.ToLowerInvariant())
             {
-               
+                case "19e6043495a5b4da":
+                    return "Edit Pad Pro";
+                    
                 case "5c450709f7ae4396":
                     return "Firefox 1.0 / 2.0 / 3.0";
 

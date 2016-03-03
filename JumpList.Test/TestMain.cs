@@ -56,7 +56,7 @@ namespace JumpList.Test
             {
                 foreach (var fname in Directory.GetFiles(allPath, "*.automaticDestinations-ms", SearchOption.AllDirectories))
                 {
-                 //   Debug.WriteLine(fname);
+                    Debug.WriteLine(fname);
                     var raw = File.ReadAllBytes(fname);
 
                     var a = new AutomaticDestination(raw, fname);
@@ -72,12 +72,12 @@ namespace JumpList.Test
             }
         }
 
-        [Test]
+   //     [Test]
         public void OneOff()
         {
-            var raw = File.ReadAllBytes(@"C:\Temp\KROLLa4a5324453625195.automaticDestinations-ms");
+            var raw = File.ReadAllBytes(@"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\19e6043495a5b4da.automaticDestinations-ms");
 
-            var aaaa = new AutomaticDestination(raw, @"C:\Temp\KROLLa4a5324453625195.automaticDestinations-ms");
+            var aaaa = new AutomaticDestination(raw, @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\19e6043495a5b4da.automaticDestinations-ms");
 
             Debug.WriteLine(aaaa);
         }

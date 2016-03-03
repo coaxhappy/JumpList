@@ -60,7 +60,7 @@ namespace JumpList.Automatic
 
             PinStatus = BitConverter.ToInt32(rawBytes, 108);
 
-            if (version == 3)
+            if (version > 1)
             {
                 Unknown2 = BitConverter.ToInt32(rawBytes, 116);
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
