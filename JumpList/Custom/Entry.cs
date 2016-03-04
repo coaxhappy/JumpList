@@ -1,26 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Lnk;
 
 namespace JumpList.Custom
 {
     public class Entry
     {
-        public string Name { get; }
-        public int Unknown0 { get; }
-        public float Rank { get; }
-        public int Unknown2 { get; }
-        public int HeaderType { get; }
+        private readonly byte[] footerBytes = {0xAB, 0xFB, 0xBF, 0xBA};
 
-        public List<LnkFile> LnkFiles { get; }
-
-        private readonly byte[] footerBytes = { 0xAB, 0xFB, 0xBF, 0xBA };
-        private readonly byte[] lnkHeaderBytes = { 0x4C, 0x00, 0x00, 0x00, 0x01, 0x14, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46 };
+        private readonly byte[] lnkHeaderBytes =
+        {
+            0x4C, 0x00, 0x00, 0x00, 0x01, 0x14, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00,
+            0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46
+        };
 
         public Entry(byte[] rawBytes)
         {
@@ -35,7 +29,7 @@ namespace JumpList.Custom
             if (HeaderType == 0)
             {
                 var nameLen = BitConverter.ToInt16(rawBytes, 16);
-                Name = Encoding.Unicode.GetString(rawBytes, 18, nameLen * 2).Split('\0').First();
+                Name = Encoding.Unicode.GetString(rawBytes, 18, nameLen*2).Split('\0').First();
             }
 
             var lnkOffsets = new List<int>();
@@ -57,9 +51,9 @@ namespace JumpList.Custom
                 index = lo + 1; //add length so we do not hit on it again
             }
 
-          //  Debug.WriteLine($"Link offsets contains {lnkOffsets.Count} offsets: {string.Join(", ", lnkOffsets)}");
-          
-          //  Debug.WriteLine($"Footer pos: {footerPos}");
+            //  Debug.WriteLine($"Link offsets contains {lnkOffsets.Count} offsets: {string.Join(", ", lnkOffsets)}");
+
+            //  Debug.WriteLine($"Footer pos: {footerPos}");
 
             var counter = 0;
             var max = lnkOffsets.Count - 1;
@@ -96,6 +90,13 @@ namespace JumpList.Custom
             }
         }
 
+        public string Name { get; }
+        public int Unknown0 { get; }
+        public float Rank { get; }
+        public int Unknown2 { get; }
+        public int HeaderType { get; }
+
+        public List<LnkFile> LnkFiles { get; }
 
 
         public override string ToString()
@@ -114,6 +115,5 @@ namespace JumpList.Custom
 
             return sb.ToString();
         }
-
     }
 }

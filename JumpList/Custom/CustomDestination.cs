@@ -1,56 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Lnk;
 
 namespace JumpList.Custom
 {
     public class CustomDestination
     {
-     
-        public string SourceFile { get; }
-
-        public AppIdInfo AppId { get; }
-
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine($">>>>>>Source: {SourceFile} <<<<<<<");
-            sb.AppendLine($"AppId: {AppId}");
-            sb.AppendLine($"Total entries: {Entries.Count}");
-
-            var entryNum = 0;
-            foreach (var entry in Entries)
-            {
-                sb.AppendLine($"Entry #: {entryNum}, Rank: {entry.Rank}");
-
-                if (entry.Name.Length > 0)
-                {
-                    sb.AppendLine($"   Name: {entry.Name}");
-                }
-
-                sb.AppendLine($"   Total lnk count: {entry.LnkFiles.Count}");
-
-                foreach (var lnkFile in entry.LnkFiles)
-                {
-                    sb.AppendLine($"   {lnkFile}");
-                }
-                sb.AppendLine();
-                entryNum += 1;
-            }
-            
-          
-
-            return sb.ToString();
-        }
-
-        private readonly byte[] footerBytes = { 0xAB, 0xFB, 0xBF, 0xBA };
-
-        public List<Entry> Entries { get; } 
+        private readonly byte[] footerBytes = {0xAB, 0xFB, 0xBF, 0xBA};
 
         public CustomDestination(byte[] rawBytes, string sourceFile)
         {
@@ -75,16 +33,14 @@ namespace JumpList.Custom
 
             Entries = new List<Entry>();
 
-          
 
             var index = 0;
 
-         
 
             //first, check for footer offsets. some files have more than one
 
             var footerOffsets = new List<int>();
-            
+
             while (index < rawBytes.Length)
             {
                 var lo = ByteSearch(rawBytes, footerBytes, index);
@@ -98,8 +54,6 @@ namespace JumpList.Custom
 
                 index = lo + footerBytes.Length; //add length so we do not hit on it again
             }
-
-           // Debug.WriteLine($"Footer offsets contains {footerOffsets.Count} offsets: {string.Join(", ", footerOffsets)}");
 
             var byteChunks = new List<byte[]>();
 
@@ -116,7 +70,7 @@ namespace JumpList.Custom
                 chunkStart += chunkSize;
             }
 
-            
+
             foreach (var byteChunk in byteChunks)
             {
                 if (byteChunk.Length > 30)
@@ -125,19 +79,60 @@ namespace JumpList.Custom
 
                     Entries.Add(e);
                 }
-                
             }
+        }
+
+        public string SourceFile { get; }
+
+        public AppIdInfo AppId { get; }
+
+        public List<Entry> Entries { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"Source: {SourceFile}");
+            sb.AppendLine($"    AppId: {AppId}");
+            sb.AppendLine($"    Total entries: {Entries.Count}");
+
+            var entryNum = 0;
+            foreach (var entry in Entries)
+            {
+                sb.AppendLine($"    Entry #: {entryNum}, Rank: {entry.Rank}");
+
+                if (entry.Name.Length > 0)
+                {
+                    sb.AppendLine($"   Name: {entry.Name}");
+                }
+
+                sb.AppendLine($"    Total lnk count: {entry.LnkFiles.Count}");
+
+                foreach (var lnkFile in entry.LnkFiles)
+                {
+                    sb.AppendLine($"     lnk header flags: {lnkFile.Header.DataFlags}");
+                    sb.AppendLine($"      Target created: {lnkFile.Header.TargetCreationDate}");
+                    sb.AppendLine($"      Target modified: {lnkFile.Header.TargetModificationDate}");
+                    sb.AppendLine($"      Target accessed: {lnkFile.Header.TargetLastAccessedDate}");
+                }
+                sb.AppendLine();
+                entryNum += 1;
+            }
+
+
+            return sb.ToString();
         }
 
         public static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)
         {
-            int found = -1;
-            bool matched = false;
+            var found = -1;
+            var matched = false;
             //only look at this if we have a populated search array and search bytes with a sensible start
-            if (searchIn.Length > 0 && searchBytes.Length > 0 && start <= (searchIn.Length - searchBytes.Length) && searchIn.Length >= searchBytes.Length)
+            if (searchIn.Length > 0 && searchBytes.Length > 0 && start <= searchIn.Length - searchBytes.Length &&
+                searchIn.Length >= searchBytes.Length)
             {
                 //iterate through the array to be searched
-                for (int i = start; i <= searchIn.Length - searchBytes.Length; i++)
+                for (var i = start; i <= searchIn.Length - searchBytes.Length; i++)
                 {
                     //if the start bytes match we will start comparing all other bytes
                     if (searchIn[i] == searchBytes[0])
@@ -146,7 +141,7 @@ namespace JumpList.Custom
                         {
                             //multiple bytes to be searched we have to compare byte by byte
                             matched = true;
-                            for (int y = 1; y <= searchBytes.Length - 1; y++)
+                            for (var y = 1; y <= searchBytes.Length - 1; y++)
                             {
                                 if (searchIn[i + y] != searchBytes[y])
                                 {
@@ -160,7 +155,6 @@ namespace JumpList.Custom
                                 found = i;
                                 break;
                             }
-
                         }
                         else
                         {
@@ -168,10 +162,8 @@ namespace JumpList.Custom
                             found = i;
                             break; //stop the loop
                         }
-
                     }
                 }
-
             }
             return found;
         }

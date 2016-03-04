@@ -17,6 +17,15 @@ namespace JumpList.Automatic
             Unknown2 = BitConverter.ToInt32(rawBytes, 28);
         }
 
+        public int Version { get; }
+        public int NumberOfEntries { get; }
+        public int NumberOfPinnedEntries { get; }
+        public float UnknownCounter { get; }
+        public int LastEntryNumber { get; }
+        public int Unknown1 { get; }
+        public int LastRevisionNumber { get; }
+        public int Unknown2 { get; }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -32,14 +41,5 @@ namespace JumpList.Automatic
 
             return sb.ToString();
         }
-
-        public int Version { get; }
-        public int NumberOfEntries { get; }
-        public int NumberOfPinnedEntries { get; }
-        public float UnknownCounter { get; }
-        public int LastEntryNumber { get; }
-        public int Unknown1 { get; }
-        public int LastRevisionNumber { get; }
-        public int Unknown2 { get; }
     }
 }

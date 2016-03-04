@@ -6,22 +6,6 @@ namespace JumpList.Automatic
 {
     public class DestList
     {
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine($"Header: {Header}");
-            
-            sb.AppendLine("");
-            sb.AppendLine($"DestList Entries Expected: {Header.NumberOfEntries:N0}, Found: {Entries.Count:N0}");
-            foreach (var destListEntry in Entries)
-            {
-                sb.AppendLine(destListEntry.ToString());
-            }
-
-            return sb.ToString();
-        }
-
         public DestList(byte[] rawBytes)
         {
             Entries = new List<DestListEntry>();
@@ -32,7 +16,7 @@ namespace JumpList.Automatic
             Header = new DestListHeader(headerBytes);
 
             var index = 32;
-            int pathSize = 0;
+            var pathSize = 0;
             var entrySize = 0;
 
             if (Header.Version == 1)
@@ -83,5 +67,21 @@ namespace JumpList.Automatic
         public DestListHeader Header { get; }
 
         public List<DestListEntry> Entries { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"Header: {Header}");
+
+            sb.AppendLine("");
+            sb.AppendLine($"DestList Entries Expected: {Header.NumberOfEntries:N0}, Found: {Entries.Count:N0}");
+            foreach (var destListEntry in Entries)
+            {
+                sb.AppendLine(destListEntry.ToString());
+            }
+
+            return sb.ToString();
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -10,22 +9,6 @@ namespace JumpList.Automatic
 {
     public class DestListEntry
     {
-        public long Checksum { get; }
-        public int EntryNumber { get; }
-        public Guid FileBirthDroid { get; }
-        public Guid FileDroid { get; }
-        public string Hostname { get; }
-        public DateTimeOffset LastModified { get; }
-        public string Path { get; }
-        public int PinStatus { get; }
-        public int Unknown0 { get; }
-        public int Unknown1 { get; }
-        public int Unknown2 { get; }
-        public int Unknown3 { get; }
-        public int Unknown4 { get; }
-        public Guid VolumeBirthDroid { get; }
-        public Guid VolumeDroid { get; }
-
         public DestListEntry(byte[] rawBytes, int version)
         {
             Checksum = BitConverter.ToInt64(rawBytes, 0);
@@ -66,16 +49,15 @@ namespace JumpList.Automatic
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
                 Unknown4 = BitConverter.ToInt32(rawBytes, 124);
 
-                var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
+                var v3PathLen = BitConverter.ToInt16(rawBytes, 128)*2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
             }
             else
             {
-                var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
+                var v1PathLen = BitConverter.ToInt16(rawBytes, 112)*2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
-
             }
 
             if (Path.StartsWith("knownfolder"))
@@ -90,16 +72,18 @@ namespace JumpList.Automatic
 
             if (Path.StartsWith("::"))
             {
-               var pathSegs = Path.Split('\\');
+                var pathSegs = Path.Split('\\');
 
                 var newPathSegs = new List<string>();
 
                 foreach (var pathSeg in pathSegs)
                 {
-                    var newPath = string.Empty;
                     try
                     {
-                        var regexObj = new Regex(@"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b|\(\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\)|\{\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\}", RegexOptions.IgnoreCase);
+                        var regexObj =
+                            new Regex(
+                                @"\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b|\(\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\)|\{\b[A-F0-9]{8}(?:-[A-F0-9]{4}){3}-[A-F0-9]{12}\b\}",
+                                RegexOptions.IgnoreCase);
                         var matchResults = regexObj.Match(pathSeg);
 
 
@@ -114,8 +98,6 @@ namespace JumpList.Automatic
                         {
                             newPathSegs.Add(pathSeg);
                         }
-
-                      
                     }
                     catch (ArgumentException ex)
                     {
@@ -123,9 +105,7 @@ namespace JumpList.Automatic
                     }
                 }
 
-                Path = $"{Path} ==> {string.Join("\\",newPathSegs)}";
-
-
+                Path = $"{Path} ==> {string.Join("\\", newPathSegs)}";
             }
 
             var tempMac = FileDroid.ToString().Split('-').Last();
@@ -135,6 +115,22 @@ namespace JumpList.Automatic
 
             CreationTime = GetDateTimeOffsetFromGuid(FileDroid);
         }
+
+        public long Checksum { get; }
+        public int EntryNumber { get; }
+        public Guid FileBirthDroid { get; }
+        public Guid FileDroid { get; }
+        public string Hostname { get; }
+        public DateTimeOffset LastModified { get; }
+        public string Path { get; }
+        public int PinStatus { get; }
+        public int Unknown0 { get; }
+        public int Unknown1 { get; }
+        public int Unknown2 { get; }
+        public int Unknown3 { get; }
+        public int Unknown4 { get; }
+        public Guid VolumeBirthDroid { get; }
+        public Guid VolumeDroid { get; }
 
         public DateTimeOffset CreationTime { get; }
         public string MacAddress { get; }

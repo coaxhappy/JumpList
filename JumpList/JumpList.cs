@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using JumpList.Automatic;
 using JumpList.Custom;
 
@@ -22,8 +17,7 @@ namespace JumpList
         {
             var raw = File.ReadAllBytes(customName);
 
-            return new CustomDestination(raw,customName);
-
+            return new CustomDestination(raw, customName);
         }
     }
 }

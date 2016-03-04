@@ -1,26 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace JumpList
+﻿namespace JumpList
 {
     public class AppIdInfo
     {
+        public AppIdInfo(string appId)
+        {
+            AppId = appId;
+        }
+
         public string AppId { get; }
+
         public string Description =>
-        GetDescription(AppId);
+            GetDescription(AppId);
 
         public override string ToString()
         {
             return $"{AppId} ==> {Description}";
-
-        }
-
-        public AppIdInfo(string appId)
-        {
-            AppId = appId;
         }
 
         public static string GetDescription(string appId)
@@ -31,7 +25,7 @@ namespace JumpList
             {
                 case "19e6043495a5b4da":
                     return "Edit Pad Pro";
-                    
+
                 case "5c450709f7ae4396":
                     return "Firefox 1.0 / 2.0 / 3.0";
 
@@ -113,7 +107,7 @@ namespace JumpList
                     return "pbFTPClient 6.1";
                 case "27ececd8d89b6767":
                     return "AIM 6.2.14.2 / 6.5.3.12 / 6.9.17.2";
-       
+
                 case "28c8b86deab549a1":
                     return "Internet Explorer 8 / 9 / 10 (32-bit)";
                 case "290532160612e071":
@@ -247,7 +241,8 @@ namespace JumpList
                 case "50620fe75ee0093":
                     return "VMware Player 3.1.4";
                 case "521a29e5d22c13b4":
-                    return "Skype 1.4.0.84 / 2.5.0.154 / 3.8.0.139 / 4.2.0.187 / Skype 5.3.0.120 / 5.5.0.115 / 5.5.32.117";
+                    return
+                        "Skype 1.4.0.84 / 2.5.0.154 / 3.8.0.139 / 4.2.0.187 / Skype 5.3.0.120 / 5.5.0.115 / 5.5.32.117";
                 case "54c803dfc87b52ba":
                     return "Nettalk 6.7.12";
                 case "558c5bd9f906860a":
@@ -330,7 +325,7 @@ namespace JumpList
                     return "Crystal Player 1.98";
                 case "74d7f43c1561fc1e":
                     return "Windows Media Player 12 (32-bit)";
-                
+
                 case "7526de4a8b5914d9":
                     return "Forte Agent 6.00 (Build 32.1186)";
                 case "7593af37134fd767":
@@ -457,7 +452,7 @@ namespace JumpList
                     return "ICQ 6.5 (Build 2024)";
                 case "a746f9625f7695e8":
                     return "HeXHub 5.07";
-                
+
                 case "a777ad264b54abab":
                     return "JetVideo 8.0.2.200 Basic";
                 case "a79a7ce3c45d781":

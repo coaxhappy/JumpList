@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting;
 using System.Text;
 using Lnk;
 using OleCf;
@@ -12,42 +10,6 @@ namespace JumpList.Automatic
 {
     public class AutomaticDestination
     {
-        public override string ToString()
-        {
-            var sb = new StringBuilder();
-
-            sb.AppendLine($">>Source: {SourceFile}");
-            sb.AppendLine($"    AppId: {AppId}");
-            sb.AppendLine($"    DestList entries Expected: {DestListCount}, Actual: {DestListEntries.Count}");
-
-
-            foreach (var entry in DestListEntries)
-            {
-                sb.AppendLine($"Entry #: {entry.EntryNumber}, Path: {entry.Path}");
-                sb.AppendLine($"Created: {entry.CreatedOn}, Modified: {entry.LastModified}");
-                sb.AppendLine($"Has lnk: {entry.Lnk != null}");
-                sb.AppendLine($"Hostname: {entry.Hostname}, MAC Address: {entry.MacAddress}");
-
-                
-                sb.AppendLine();
-            }
-
-            return sb.ToString();
-        }
-
-        public AppIdInfo AppId { get; }
-
-        public int DestListCount { get; }
-        public int PinnedDestListCount { get; }
-
-        public int DestListVersion { get; }
-
-        public string SourceFile { get; }
-
-        private DestList DestList { get; }
-
-        public List<AutoDestList> DestListEntries { get; }
-
         private readonly OleCfFile _oleContainer;
 
         public AutomaticDestination(byte[] rawBytes, string sourceFile)
@@ -67,6 +29,8 @@ namespace JumpList.Automatic
 
             _oleContainer = new OleCfFile(rawBytes, sourceFile);
 
+            Directory = _oleContainer.Directory;
+
             var destList = _oleContainer.Directory.SingleOrDefault(t => t.DirectoryName.ToLowerInvariant() == "destlist");
             if (destList != null && destList.DirectorySize > 0)
             {
@@ -75,7 +39,6 @@ namespace JumpList.Automatic
                 DestList = new DestList(destBytes);
             }
 
-            
 
             DestListEntries = new List<AutoDestList>();
 
@@ -87,21 +50,16 @@ namespace JumpList.Automatic
                 foreach (var entry in DestList.Entries)
                 {
                     var dirItem =
-                                    _oleContainer.Directory.SingleOrDefault(
-                                        t => string.Equals(t.DirectoryName, entry.EntryNumber.ToString("X"), StringComparison.InvariantCultureIgnoreCase));
+                        _oleContainer.Directory.SingleOrDefault(
+                            t =>
+                                string.Equals(t.DirectoryName, entry.EntryNumber.ToString("X"),
+                                    StringComparison.InvariantCultureIgnoreCase));
 
                     if (dirItem != null)
                     {
                         var p = _oleContainer.GetPayloadForDirectory(dirItem);
 
                         var sfn = $"{sourceFile}_Directory name_{dirItem.DirectoryName:X}";
-                        
-//                        if (dirItem.DirectoryName == "1fe")
-//                        {
-//                            Debug.WriteLine(sfn);
-//                            File.WriteAllBytes(@"C:\temp\1fe.bin", p);
-//                        }
-
 
                         var dlnk = new LnkFile(p, sfn);
 
@@ -113,18 +71,78 @@ namespace JumpList.Automatic
                     {
                         var dleNull = new AutoDestList(entry, null);
 
-                        DestListEntries.Add(dleNull); 
+                        DestListEntries.Add(dleNull);
                     }
                 }
             }
+        }
 
+        public List<DirectoryEntry> Directory { get; }
+
+        public AppIdInfo AppId { get; }
+
+        public int DestListCount { get; }
+        public int PinnedDestListCount { get; }
+
+        public int DestListVersion { get; }
+
+        public string SourceFile { get; }
+
+        private DestList DestList { get; }
+
+        public List<AutoDestList> DestListEntries { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($">>Source: {SourceFile}");
+            sb.AppendLine($"    AppId: {AppId}");
+            sb.AppendLine($"    Directory contains {Directory.Count:N0} items (including Root storage and DestList)");
+
+            if (DestList != null)
+            {
+                sb.AppendLine(
+                    $"    DestList (v{DestList?.Header.Version}) entries Expected: {DestListCount}, Actual: {DestListEntries.Count}");
+            }
+            else
+            {
+                sb.AppendLine("    Jump list contains no DestList entries");
+
+            }
+            
+            sb.AppendLine();
+
+            foreach (var entry in DestListEntries)
+            {
+                sb.AppendLine($"    Entry #: {entry.EntryNumber}, Path: {entry.Path}");
+                sb.AppendLine($"    Created: {entry.CreatedOn}, Modified: {entry.LastModified}");
+                sb.AppendLine($"    Hostname: {entry.Hostname}, MAC Address: {entry.MacAddress}");
+
+                if (entry.Lnk != null)
+                {
+                    sb.AppendLine($"    lnk file flags: {entry.Lnk.Header.DataFlags}");
+                    sb.AppendLine($"    Target created: {entry.Lnk.Header.TargetCreationDate}");
+                    sb.AppendLine($"    Target modified: {entry.Lnk.Header.TargetModificationDate}");
+                    sb.AppendLine($"    Target accessed: {entry.Lnk.Header.TargetLastAccessedDate}");
+                    
+                }
+
+                
+                
+                
+                sb.AppendLine();
+            }
+
+            return sb.ToString();
         }
 
         public void DumpAllLnkFiles(string outDir)
         {
             foreach (var directoryItem in _oleContainer.Directory)
             {
-                if (directoryItem.DirectoryName.ToLowerInvariant() == "root entry" || directoryItem.DirectoryName.ToLowerInvariant() == "destlist")
+                if (directoryItem.DirectoryName.ToLowerInvariant() == "root entry" ||
+                    directoryItem.DirectoryName.ToLowerInvariant() == "destlist")
                 {
                     continue;
                 }
@@ -139,30 +157,14 @@ namespace JumpList.Automatic
                 var fName = $"AppId_{AppId}_DirName_{directoryItem.DirectoryName}.lnk";
                 var outPath = Path.Combine(outDir, fName);
 
-                File.WriteAllBytes(outPath,lnkBytes);
+                File.WriteAllBytes(outPath, lnkBytes);
             }
         }
     }
 
-    
 
     public class AutoDestList
     {
-        public string Hostname { get; }
-        public Guid VolumeDroid { get; }
-        public Guid VolumeBirthDroid { get; }
-        public Guid FileDroid { get; }
-        public Guid FileBirthDroid { get; }
-        public int EntryNumber { get; }
-        public DateTimeOffset CreatedOn { get; }
-        public DateTimeOffset LastModified { get; }
-        public bool Pinned { get; }
-        public string Path { get; }
-        public string MacAddress { get; }
-
-        public Lnk.LnkFile Lnk { get; }
-
-
         public AutoDestList(DestListEntry destEntry, LnkFile lnk)
         {
             Hostname = destEntry.Hostname;
@@ -179,5 +181,19 @@ namespace JumpList.Automatic
 
             Lnk = lnk;
         }
+
+        public string Hostname { get; }
+        public Guid VolumeDroid { get; }
+        public Guid VolumeBirthDroid { get; }
+        public Guid FileDroid { get; }
+        public Guid FileBirthDroid { get; }
+        public int EntryNumber { get; }
+        public DateTimeOffset CreatedOn { get; }
+        public DateTimeOffset LastModified { get; }
+        public bool Pinned { get; }
+        public string Path { get; }
+        public string MacAddress { get; }
+
+        public LnkFile Lnk { get; }
     }
 }
