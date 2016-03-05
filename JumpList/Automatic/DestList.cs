@@ -23,7 +23,7 @@ namespace JumpList.Automatic
             {
                 index = 32;
 
-                while (index < rawBytes.Length)
+                while (index < rawBytes.Length && Entries.Count<Header.NumberOfEntries)
                 {
                     pathSize = BitConverter.ToInt16(rawBytes, index + 112);
                     //now that we know pathSize we can determine how big each record is
