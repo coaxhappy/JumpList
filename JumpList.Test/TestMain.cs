@@ -25,6 +25,7 @@ namespace JumpList.Test
         public static string LocalPath = @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent";
         public static string LocalPath2 = @"C:\Users\e\Desktop\ITA_JumpLists";
         public static string LocalPath3 = @"C:\Users\e\Desktop\MTF";
+        public static string LocalPath4 = @"C:\Users\e\Desktop\Tom";
 
         private readonly List<string> _allPaths = new List<string>
         {
@@ -42,15 +43,15 @@ namespace JumpList.Test
             //Win2012R2Path,
         };
 
-        //     [Test]
+             [Test]
         public void OneOff()
-        {
+             {
+                 var f = @"C:\Users\e\Desktop\Tom\AutomaticDestinations\1b4dd67f29cb1962.automaticDestinations-ms";
             var raw =
                 File.ReadAllBytes(
-                    @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\19e6043495a5b4da.automaticDestinations-ms");
+                    f);
 
-            var aaaa = new AutomaticDestination(raw,
-                @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent\AutomaticDestinations\19e6043495a5b4da.automaticDestinations-ms");
+            var aaaa = new AutomaticDestination(raw,f);
 
             Debug.WriteLine(aaaa);
         }

@@ -12,6 +12,11 @@ namespace JumpList.Custom
 
         public CustomDestination(byte[] rawBytes, string sourceFile)
         {
+            if (rawBytes.Length == 0)
+            {
+                throw new Exception("Empty file");
+            }
+
             SourceFile = sourceFile;
 
             var appid = Path.GetFileName(sourceFile).Split('.').FirstOrDefault();
