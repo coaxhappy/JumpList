@@ -75,6 +75,8 @@ namespace JumpList.Test
                     a.DestListCount.Should().Be(a.Directory.Count - 2);
 
                     Debug.WriteLine(a);
+
+
                     Debug.WriteLine("-----------------------------------------------------------------");
                 }
             }

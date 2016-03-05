@@ -30,12 +30,17 @@ namespace JumpList.Custom
                 throw new Exception("Empty custom destinations jump list");
             }
 
+            var footerSig = BitConverter.ToInt32(footerBytes, 0);
+            var fileSig = BitConverter.ToInt32(rawBytes, rawBytes.Length - 4);
+
+            if (footerSig != fileSig)
+            {
+                throw new Exception("Invalid signature (footer missing)");
+            }
 
             Entries = new List<Entry>();
 
-
             var index = 0;
-
 
             //first, check for footer offsets. some files have more than one
 
@@ -57,6 +62,8 @@ namespace JumpList.Custom
 
             var byteChunks = new List<byte[]>();
 
+            var absOffsets = new List<int>();
+
             var chunkStart = 0;
             foreach (var footerOffset in footerOffsets)
             {
@@ -65,19 +72,22 @@ namespace JumpList.Custom
 
                 Buffer.BlockCopy(rawBytes, chunkStart, bytes, 0, bytes.Length);
 
+                absOffsets.Add(chunkStart);
+
                 byteChunks.Add(bytes);
 
                 chunkStart += chunkSize;
             }
 
-
+            var counter = 0;
             foreach (var byteChunk in byteChunks)
             {
                 if (byteChunk.Length > 30)
                 {
-                    var e = new Entry(byteChunk);
+                    var e = new Entry(byteChunk,absOffsets[counter]);
 
                     Entries.Add(e);
+                    counter += 1;
                 }
             }
         }
@@ -122,6 +132,8 @@ namespace JumpList.Custom
 
             return sb.ToString();
         }
+
+       
 
         public static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)
         {

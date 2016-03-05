@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using Lnk;
@@ -16,9 +17,10 @@ namespace JumpList.Custom
             0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46
         };
 
-        public Entry(byte[] rawBytes)
+        public Entry(byte[] rawBytes, int entryOffset)
         {
             LnkFiles = new List<LnkFile>();
+            lnkBytes = new Dictionary<string, byte[]>();
 
             Unknown0 = BitConverter.ToInt32(rawBytes, 0);
             Rank = BitConverter.ToSingle(rawBytes, 4);
@@ -77,12 +79,11 @@ namespace JumpList.Custom
 
                 Buffer.BlockCopy(rawBytes, start, bytes, 0, bytes.Length);
 
-//                var outPath = @"C:\Temp\!!!!!!!out";
-//                var outName = Path.Combine(outPath, $"Offset_0x{lnkOffset:X}.lnk");
-//
-//                File.WriteAllBytes(outName,bytes);
+                var name = $"Offset_0x{entryOffset + lnkOffset:X}.lnk";
 
-                var l = new LnkFile(bytes, $"Offset_0x{lnkOffset:X}.lnk");
+                lnkBytes.Add(name,bytes);
+
+                var l = new LnkFile(bytes, name);
 
                 LnkFiles.Add(l);
 
@@ -96,7 +97,25 @@ namespace JumpList.Custom
         public int Unknown2 { get; }
         public int HeaderType { get; }
 
+        private Dictionary<string, byte[]> lnkBytes; 
+
         public List<LnkFile> LnkFiles { get; }
+
+        public void DumpAllLnkFiles(string outDir, string appId)
+        {
+            foreach (var entry in lnkBytes)
+            {
+                if (entry.Value[0] != 0x4c)
+                {
+                    //this isn't a lnk file since it doesn't start with 0x4c, so continue
+                    continue;
+                }
+                var fName = $"AppId_{appId}_{entry.Key}";
+                var outPath = Path.Combine(outDir, fName);
+
+                File.WriteAllBytes(outPath, entry.Value);
+            }
+        }
 
 
         public override string ToString()

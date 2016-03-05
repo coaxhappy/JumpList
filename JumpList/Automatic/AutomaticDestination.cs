@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -154,8 +155,9 @@ namespace JumpList.Automatic
                     //this isn't a lnk file since it doesn't start with 0x4c, so continue
                     continue;
                 }
-                var fName = $"AppId_{AppId}_DirName_{directoryItem.DirectoryName}.lnk";
+                var fName = $"AppId_{AppId.AppId}_DirName_{directoryItem.DirectoryName}.lnk";
                 var outPath = Path.Combine(outDir, fName);
+               
 
                 File.WriteAllBytes(outPath, lnkBytes);
             }
