@@ -28,7 +28,8 @@
 
                 case "5c450709f7ae4396":
                     return "Firefox 1.0 / 2.0 / 3.0";
-
+                case "1bc9bbbe61f14501":
+                    return "OneNote";
 
                 case "16ec093b8f51508f":
                     return "Opera 8.54 build 7730 / 9.64 build 10487 / 11.50 build 1074";

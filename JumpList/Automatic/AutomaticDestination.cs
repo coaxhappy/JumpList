@@ -47,6 +47,7 @@ namespace JumpList.Automatic
             {
                 DestListCount = DestList.Header.NumberOfEntries;
                 DestListVersion = DestList.Header.Version;
+                LastUsedEntryNumber = DestList.Header.LastEntryNumber;
 
                 foreach (var entry in DestList.Entries)
                 {
@@ -84,6 +85,7 @@ namespace JumpList.Automatic
 
         public int DestListCount { get; }
         public int PinnedDestListCount { get; }
+        public int LastUsedEntryNumber { get; }
 
         public int DestListVersion { get; }
 
