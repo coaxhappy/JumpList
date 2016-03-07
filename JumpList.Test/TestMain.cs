@@ -46,12 +46,12 @@ namespace JumpList.Test
              [Test]
         public void OneOff()
              {
-                 var f = @"C:\Users\e\Desktop\HP\fb3b0dbfee58fac8.automaticDestinations-ms";
+                 var f = @"C:\Users\e\Desktop\HP\8f15c4c5fd8ec34.customDestinations-ms";
 
 
             var raw =File.ReadAllBytes(f);
 
-            var aaaa = new AutomaticDestination(raw,f);
+            var aaaa = new CustomDestination(raw,f);
 
             Debug.WriteLine(aaaa);
         }
