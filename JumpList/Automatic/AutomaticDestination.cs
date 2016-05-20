@@ -64,9 +64,9 @@ namespace JumpList.Automatic
 
                     if (dirItem != null)
                     {
-                        var p = _oleContainer.GetPayloadForDirectory(dirItem);
-
                         var sfn = $"{sourceFile}_Directory name_{dirItem.DirectoryName:X}";
+
+                        var p = _oleContainer.GetPayloadForDirectory(dirItem);
 
                         var dlnk = new LnkFile(p, sfn);
 
