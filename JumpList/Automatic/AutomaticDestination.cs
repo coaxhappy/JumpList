@@ -84,6 +84,29 @@ namespace JumpList.Automatic
             }
         }
 
+        public LnkFile GetLnkFromDirectoryName(string dirName)
+        {
+            var dirItem =
+                        _oleContainer.Directory.SingleOrDefault(
+                            t =>
+                                string.Equals(t.DirectoryName, dirName,
+                                    StringComparison.InvariantCultureIgnoreCase));
+
+            if (dirItem != null)
+            {
+                var sfn = $"{SourceFile}_Directory name_{dirItem.DirectoryName:X}";
+
+                var p = _oleContainer.GetPayloadForDirectory(dirItem);
+
+                var dlnk = new LnkFile(p, sfn);
+
+                return dlnk;
+            }
+
+            return null;
+            
+        }
+
         public List<DirectoryEntry> Directory { get; }
 
         public AppIdInfo AppId { get; }
