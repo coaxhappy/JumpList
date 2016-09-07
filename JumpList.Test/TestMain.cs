@@ -46,7 +46,7 @@ namespace JumpList.Test
              [Test]
         public void OneOff()
              {
-                 var f = @"C:\Users\eric\Desktop\9839aec31243a928.automaticDestinations-ms";
+                 var f = @"C:\Users\eric\Desktop\469e4a7982cea4d4.automaticDestinations-ms";
 
 
             var raw =File.ReadAllBytes(f);

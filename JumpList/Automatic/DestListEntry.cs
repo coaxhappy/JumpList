@@ -37,7 +37,7 @@ namespace JumpList.Automatic
 
             EntryNumber = BitConverter.ToInt32(rawBytes, 88);
             Unknown0 = BitConverter.ToInt32(rawBytes, 92);
-            Unknown1 = BitConverter.ToInt32(rawBytes, 96);
+            AccessCount = BitConverter.ToSingle(rawBytes, 96);
 
             LastModified = DateTimeOffset.FromFileTime(BitConverter.ToInt64(rawBytes, 100)).ToUniversalTime();
 
@@ -125,7 +125,7 @@ namespace JumpList.Automatic
         public string Path { get; }
         public int PinStatus { get; }
         public int Unknown0 { get; }
-        public int Unknown1 { get; }
+        public Single AccessCount { get; }
         public int Unknown2 { get; }
         public int Unknown3 { get; }
         public int Unknown4 { get; }
@@ -176,7 +176,7 @@ namespace JumpList.Automatic
             sb.AppendLine($"MacAddress: {MacAddress}");
             sb.AppendLine($"CreationTime: {CreationTime}");
             sb.AppendLine($"Unknown0: {Unknown0}");
-            sb.AppendLine($"Unknown1: {Unknown1}");
+            sb.AppendLine($"AccessCount: {AccessCount}");
             sb.AppendLine($"Unknown2: {Unknown2}");
             sb.AppendLine($"Unknown3: {Unknown3}");
             sb.AppendLine($"Unknown4: {Unknown4}");

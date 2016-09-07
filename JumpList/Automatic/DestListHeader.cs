@@ -36,7 +36,7 @@ namespace JumpList.Automatic
             sb.AppendLine($"LastEntryNumber: {LastEntryNumber}");
             sb.AppendLine($"LastRevisionNumber: {LastRevisionNumber}");
             sb.AppendLine($"Unknown0: {UnknownCounter}");
-            sb.AppendLine($"Unknown1: {Unknown1}");
+            sb.AppendLine($"AccessCount: {Unknown1}");
             sb.AppendLine($"Unknown2: {Unknown2}");
 
             return sb.ToString();
