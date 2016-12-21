@@ -205,6 +205,7 @@ namespace JumpList.Automatic
             FileDroid = destEntry.FileDroid;
             FileBirthDroid = destEntry.FileBirthDroid;
             EntryNumber = destEntry.EntryNumber;
+            MRUPosition = destEntry.MRUPosition;
             CreatedOn = destEntry.CreationTime;
             LastModified = destEntry.LastModified;
             Pinned = destEntry.PinStatus != -1;
@@ -220,6 +221,7 @@ namespace JumpList.Automatic
         public Guid FileDroid { get; }
         public Guid FileBirthDroid { get; }
         public int EntryNumber { get; }
+        public int MRUPosition { get; }
         public DateTimeOffset CreatedOn { get; }
         public DateTimeOffset LastModified { get; }
         public bool Pinned { get; }

@@ -23,9 +23,9 @@ namespace JumpList.Test
 
         // A bunch of good jump lists that I don't want to share =)
         public static string LocalPath = @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent";
-        public static string LocalPath2 = @"C:\Users\e\Desktop\ITA_JumpLists";
-        public static string LocalPath3 = @"C:\Users\e\Desktop\MTF";
-        public static string LocalPath4 = @"C:\Users\e\Desktop\Tom";
+        public static string LocalPath2 = @"D:\Sync\Jump lists and lnks\ITA_JumpLists";
+        public static string LocalPath3 = @"D:\Sync\Jump lists and lnks\MTF";
+        public static string LocalPath4 = @"D:\Sync\Jump lists and lnks\Tom";
 
         private readonly List<string> _allPaths = new List<string>
         {
@@ -36,7 +36,7 @@ namespace JumpList.Test
             Win7Path,
             Win80Path,
             Win81Path,
-            LocalPath,
+            //LocalPath,
             LocalPath2,
             LocalPath3
             //Win2012Path,
@@ -62,6 +62,10 @@ namespace JumpList.Test
             //  var r2 = File.ReadAllBytes(@"C:\Users\e\Desktop\ITA_JumpLists\PC2_Win10\AutomaticDestinations\5f7b5f1e01b83767.automaticDestinations-ms");
             // var aa = new AutomaticDestination(r2, @"C:\Users\e\Desktop\ITA_JumpLists\PC2_Win10\AutomaticDestinations\5f7b5f1e01b83767.automaticDestinations-ms");
 
+            var f = @"C:\Users\eric\Desktop\NewToAdd.txt";
+
+            var f1 = JumpList.AppIdList.LoadAppListFromFile(f);
+
             foreach (var allPath in _allPaths)
             {
                 foreach (
@@ -72,10 +76,17 @@ namespace JumpList.Test
 
                     var a = new AutomaticDestination(raw, fname);
 
+                    var foo = JumpList.AppIdList.GetDescriptionFromId(a.AppId.AppId);
+
+                    if (foo.Contains("Unknown AppId") == false)
+                    {
+                        Debug.WriteLine(foo);
+                    }
+
                     a.DestListCount.Should().Be(a.DestListEntries.Count);
                     a.DestListCount.Should().Be(a.Directory.Count - 2);
 
-                    Debug.WriteLine(a);
+                  //  Debug.WriteLine(a);
 
 
                     Debug.WriteLine("-----------------------------------------------------------------");

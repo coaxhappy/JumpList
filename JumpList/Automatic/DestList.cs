@@ -19,6 +19,8 @@ namespace JumpList.Automatic
             var pathSize = 0;
             var entrySize = 0;
 
+            var mruPos = 0;
+
             if (Header.Version == 1)
             {
                 index = 32;
@@ -32,11 +34,13 @@ namespace JumpList.Automatic
                     var entryBytes1 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes1, 0, entrySize);
 
-                    var entry1 = new DestListEntry(entryBytes1, Header.Version);
+                    var entry1 = new DestListEntry(entryBytes1, Header.Version, mruPos);
 
                     Entries.Add(entry1);
 
                     index += entrySize;
+
+                    mruPos += 1;
                 }
             }
             else
@@ -55,11 +59,13 @@ namespace JumpList.Automatic
                     var entryBytes2 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes2, 0, entrySize);
 
-                    var entry2 = new DestListEntry(entryBytes2, Header.Version);
+                    var entry2 = new DestListEntry(entryBytes2, Header.Version,mruPos);
 
                     Entries.Add(entry2);
 
                     index += entrySize;
+
+                    mruPos += 1;
                 }
             }
         }

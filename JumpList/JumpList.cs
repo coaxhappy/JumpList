@@ -6,7 +6,19 @@ namespace JumpList
 {
     public static class JumpList
     {
-        public static AutomaticDestination LoadAutoJumplist(string autoName)
+        public static AppIDList AppIdList { get; }
+
+
+        static JumpList()
+        {
+            if (AppIdList == null)
+            {
+                AppIdList = new AppIDList();
+            }            
+        }
+
+
+    public static AutomaticDestination LoadAutoJumplist(string autoName)
         {
             var raw = File.ReadAllBytes(autoName);
 

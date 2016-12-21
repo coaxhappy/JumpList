@@ -9,8 +9,10 @@ namespace JumpList.Automatic
 {
     public class DestListEntry
     {
-        public DestListEntry(byte[] rawBytes, int version)
+        public DestListEntry(byte[] rawBytes, int version, int mruPosition)
         {
+            MRUPosition = mruPosition;
+
             Checksum = BitConverter.ToInt64(rawBytes, 0);
 
             var volDroidBytes = new byte[16];
@@ -118,6 +120,7 @@ namespace JumpList.Automatic
 
         public long Checksum { get; }
         public int EntryNumber { get; }
+        public int MRUPosition { get; }
         public Guid FileBirthDroid { get; }
         public Guid FileDroid { get; }
         public string Hostname { get; }
@@ -170,6 +173,7 @@ namespace JumpList.Automatic
             sb.AppendLine($"FileBirthDroid: {FileBirthDroid}");
             sb.AppendLine($"Hostname: {Hostname}");
             sb.AppendLine($"EntryNumber: {EntryNumber}");
+            sb.AppendLine($"MRUPosition: {MRUPosition}");
             sb.AppendLine($"LastMod: {LastModified}");
             sb.AppendLine($"PinStatus: {PinStatus}");
             sb.AppendLine($"Path: {Path}");
