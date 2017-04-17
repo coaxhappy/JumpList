@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,7 +36,8 @@ namespace JumpList.Automatic
 
             Directory = _oleContainer.Directory;
 
-            var destList = _oleContainer.Directory.SingleOrDefault(t => t.DirectoryName.ToLowerInvariant() == "destlist");
+            var destList =
+                _oleContainer.Directory.SingleOrDefault(t => t.DirectoryName.ToLowerInvariant() == "destlist");
             if (destList != null && destList.DirectorySize > 0)
             {
                 var destBytes = _oleContainer.GetPayloadForDirectory(destList);
@@ -84,29 +84,6 @@ namespace JumpList.Automatic
             }
         }
 
-        public LnkFile GetLnkFromDirectoryName(string dirName)
-        {
-            var dirItem =
-                        _oleContainer.Directory.SingleOrDefault(
-                            t =>
-                                string.Equals(t.DirectoryName, dirName,
-                                    StringComparison.InvariantCultureIgnoreCase));
-
-            if (dirItem != null)
-            {
-                var sfn = $"{SourceFile}_Directory name_{dirItem.DirectoryName:X}";
-
-                var p = _oleContainer.GetPayloadForDirectory(dirItem);
-
-                var dlnk = new LnkFile(p, sfn);
-
-                return dlnk;
-            }
-
-            return null;
-            
-        }
-
         public List<DirectoryEntry> Directory { get; }
 
         public AppIdInfo AppId { get; }
@@ -122,6 +99,28 @@ namespace JumpList.Automatic
         private DestList DestList { get; }
 
         public List<AutoDestList> DestListEntries { get; }
+
+        public LnkFile GetLnkFromDirectoryName(string dirName)
+        {
+            var dirItem =
+                _oleContainer.Directory.SingleOrDefault(
+                    t =>
+                        string.Equals(t.DirectoryName, dirName,
+                            StringComparison.InvariantCultureIgnoreCase));
+
+            if (dirItem != null)
+            {
+                var sfn = $"{SourceFile}_Directory name_{dirItem.DirectoryName:X}";
+
+                var p = _oleContainer.GetPayloadForDirectory(dirItem);
+
+                var dlnk = new LnkFile(p, sfn);
+
+                return dlnk;
+            }
+
+            return null;
+        }
 
         public override string ToString()
         {
@@ -139,9 +138,8 @@ namespace JumpList.Automatic
             else
             {
                 sb.AppendLine("    Jump list contains no DestList entries");
-
             }
-            
+
             sb.AppendLine();
 
             foreach (var entry in DestListEntries)
@@ -156,12 +154,8 @@ namespace JumpList.Automatic
                     sb.AppendLine($"    Target created: {entry.Lnk.Header.TargetCreationDate}");
                     sb.AppendLine($"    Target modified: {entry.Lnk.Header.TargetModificationDate}");
                     sb.AppendLine($"    Target accessed: {entry.Lnk.Header.TargetLastAccessedDate}");
-                    
                 }
 
-                
-                
-                
                 sb.AppendLine();
             }
 
@@ -170,6 +164,11 @@ namespace JumpList.Automatic
 
         public void DumpAllLnkFiles(string outDir)
         {
+            if (System.IO.Directory.Exists(outDir) == false)
+            {
+                System.IO.Directory.CreateDirectory(outDir);
+            }
+
             foreach (var directoryItem in _oleContainer.Directory)
             {
                 if (directoryItem.DirectoryName.ToLowerInvariant() == "root entry" ||
@@ -187,7 +186,7 @@ namespace JumpList.Automatic
                 }
                 var fName = $"AppId_{AppId.AppId}_DirName_{directoryItem.DirectoryName}.lnk";
                 var outPath = Path.Combine(outDir, fName);
-               
+
 
                 File.WriteAllBytes(outPath, lnkBytes);
             }

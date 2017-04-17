@@ -25,11 +25,11 @@ namespace JumpList.Automatic
             {
                 index = 32;
 
-                while (index < rawBytes.Length && Entries.Count<Header.NumberOfEntries)
+                while (index < rawBytes.Length && Entries.Count < Header.NumberOfEntries)
                 {
                     pathSize = BitConverter.ToInt16(rawBytes, index + 112);
                     //now that we know pathSize we can determine how big each record is
-                    entrySize = 114 + pathSize*2;
+                    entrySize = 114 + pathSize * 2;
 
                     var entryBytes1 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes1, 0, entrySize);
@@ -53,13 +53,13 @@ namespace JumpList.Automatic
                 {
                     pathSize = BitConverter.ToInt16(rawBytes, index + 128);
                     //now that we know pathSize we can determine how big each record is
-                    entrySize = 128 + 2 + pathSize*2 + 4;
+                    entrySize = 128 + 2 + pathSize * 2 + 4;
                     //128 is offset to the string, 2 for the size itself, double path for unicode, then 4 extra at the end
 
                     var entryBytes2 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes2, 0, entrySize);
 
-                    var entry2 = new DestListEntry(entryBytes2, Header.Version,mruPos);
+                    var entry2 = new DestListEntry(entryBytes2, Header.Version, mruPos);
 
                     Entries.Add(entry2);
 

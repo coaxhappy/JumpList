@@ -17,6 +17,8 @@ namespace JumpList.Custom
             0xC0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x46
         };
 
+        private readonly Dictionary<string, byte[]> lnkBytes;
+
         public Entry(byte[] rawBytes, int entryOffset)
         {
             LnkFiles = new List<LnkFile>();
@@ -31,7 +33,7 @@ namespace JumpList.Custom
             if (HeaderType == 0)
             {
                 var nameLen = BitConverter.ToInt16(rawBytes, 16);
-                Name = Encoding.Unicode.GetString(rawBytes, 18, nameLen*2).Split('\0').First();
+                Name = Encoding.Unicode.GetString(rawBytes, 18, nameLen * 2).Split('\0').First();
             }
 
             var lnkOffsets = new List<int>();
@@ -81,7 +83,7 @@ namespace JumpList.Custom
 
                 var name = $"Offset_0x{entryOffset + lnkOffset:X}.lnk";
 
-                lnkBytes.Add(name,bytes);
+                lnkBytes.Add(name, bytes);
 
                 var l = new LnkFile(bytes, name);
 
@@ -96,8 +98,6 @@ namespace JumpList.Custom
         public float Rank { get; }
         public int Unknown2 { get; }
         public int HeaderType { get; }
-
-        private Dictionary<string, byte[]> lnkBytes; 
 
         public List<LnkFile> LnkFiles { get; }
 

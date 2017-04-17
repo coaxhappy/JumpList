@@ -12,11 +12,11 @@ namespace JumpList
         public AppIDList()
         {
             //load included
-            string[] stringSeparators = new string[] { "\r\n" };
+            string[] stringSeparators = {"\r\n"};
 
-            string[] lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
+            var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
 
-        //    var lines = File.ReadAllLines(Resources.AppIDs);
+            //    var lines = File.ReadAllLines(Resources.AppIDs);
 
             AppIDs = new Dictionary<string, string>();
 
@@ -37,6 +37,7 @@ namespace JumpList
 
             return desc;
         }
+
         private int IterateLines(string[] lines)
         {
             var added = 0;

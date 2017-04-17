@@ -89,7 +89,7 @@ namespace JumpList.Custom
             {
                 if (byteChunk.Length > 30)
                 {
-                    var e = new Entry(byteChunk,absOffsets[counter]);
+                    var e = new Entry(byteChunk, absOffsets[counter]);
 
                     Entries.Add(e);
                     counter += 1;
@@ -138,7 +138,6 @@ namespace JumpList.Custom
             return sb.ToString();
         }
 
-       
 
         public static int ByteSearch(byte[] searchIn, byte[] searchBytes, int start = 0)
         {

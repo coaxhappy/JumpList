@@ -51,13 +51,13 @@ namespace JumpList.Automatic
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
                 Unknown4 = BitConverter.ToInt32(rawBytes, 124);
 
-                var v3PathLen = BitConverter.ToInt16(rawBytes, 128)*2;
+                var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
             }
             else
             {
-                var v1PathLen = BitConverter.ToInt16(rawBytes, 112)*2;
+                var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
             }
@@ -128,7 +128,7 @@ namespace JumpList.Automatic
         public string Path { get; }
         public int PinStatus { get; }
         public int Unknown0 { get; }
-        public Single AccessCount { get; }
+        public float AccessCount { get; }
         public int Unknown2 { get; }
         public int Unknown3 { get; }
         public int Unknown4 { get; }

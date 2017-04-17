@@ -23,6 +23,7 @@ namespace JumpList.Test
 
         // A bunch of good jump lists that I don't want to share =)
         public static string LocalPath = @"C:\Users\e\AppData\Roaming\Microsoft\Windows\Recent";
+
         public static string LocalPath2 = @"D:\Sync\Jump lists and lnks\ITA_JumpLists";
         public static string LocalPath3 = @"D:\Sync\Jump lists and lnks\MTF";
         public static string LocalPath4 = @"D:\Sync\Jump lists and lnks\Tom";
@@ -42,19 +43,6 @@ namespace JumpList.Test
             //Win2012Path,
             //Win2012R2Path,
         };
-
-             [Test]
-        public void OneOff()
-             {
-                 var f = @"C:\Users\eric\Desktop\469e4a7982cea4d4.automaticDestinations-ms";
-
-
-            var raw =File.ReadAllBytes(f);
-
-            var aaaa = new AutomaticDestination(raw,f);
-
-            Debug.WriteLine(aaaa);
-        }
 
         [Test]
         public void AutoTests()
@@ -86,7 +74,7 @@ namespace JumpList.Test
                     a.DestListCount.Should().Be(a.DestListEntries.Count);
                     a.DestListCount.Should().Be(a.Directory.Count - 2);
 
-                  //  Debug.WriteLine(a);
+                    //  Debug.WriteLine(a);
 
 
                     Debug.WriteLine("-----------------------------------------------------------------");
@@ -120,6 +108,19 @@ namespace JumpList.Test
                     }
                 }
             }
+        }
+
+        [Test]
+        public void OneOff()
+        {
+            var f = @"C:\Users\eric\Desktop\NEW TYPES_1b4dd67f29cb1962.automaticDestinations-ms";
+
+
+            var raw = File.ReadAllBytes(f);
+
+            var aaaa = new AutomaticDestination(raw, f);
+
+            Debug.WriteLine(aaaa);
         }
     }
 }
