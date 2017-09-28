@@ -1,3 +1,4 @@
+ff103e2cc310d0d|Adobe Reader XI
 19e6043495a5b4da|Edit Pad Pro
 5c450709f7ae4396|Firefox 1.0 / 2.0 / 3.0
 1bc9bbbe61f14501|OneNote
