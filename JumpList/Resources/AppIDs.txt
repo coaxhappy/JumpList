@@ -54,11 +54,16 @@
 226400522157fe8b|FileZilla Server 0.9.39 beta
 22c4d315e96389e0|FastCopy 3.12
 22cefa022402327d|Meca Messenger 5.3.0.52
+22cefa022402327d|Meca Messenger 5.3.0.52 (CHANGED)
+236461219accfae0|This is new 1(NEW)
 23646679aaccfae0|Adobe Acrobat 9.4.0
 23646679aaccfae0|Adobe Reader 9 x64
 23646679aaccfae0|Adobe Reader 9.
 23646679aaccfae0|Adobe Reader 9.x
+23646679aaccfae0|Adobe Reader 9.x(CHANGED)
+23709f643539f03d|TGHIS IS NEW 2(NEW)
 23709f6439b9f03d|Hex Editor Neo 5.14
+23709f6439b9f03d|Hex Editor Neo 5.14(CHANGED)
 23ef200ca6364eff|Oracle VM VirtualBox 5.0.16
 23f08dab0f6aaf30|SoMud 1.3.3
 2417caa1f2a881d4|ICQ 7.6 (Build 5617)
@@ -189,6 +194,7 @@
 5e01ecaf82f7d8e|Scour Exchange 0.0.0.228
 5ea2a50c7979fbdc|TrustyFiles 3.1.0.22
 5f6e7bc0fb699772|Microsoft Office PowerPoint 2010 x64
+5f7b5f1e01b83767|HAMBONE
 5fb817cd5a8cad21|Google Drive
 6059df4b02360af|Kadu 0.10.0 / 0.6.5.5
 606a33f5a27b57d4|Microsoft Built-in Computer Management 10.0.10011.16384 (Win10)
