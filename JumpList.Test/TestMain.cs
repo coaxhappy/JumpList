@@ -113,7 +113,7 @@ namespace JumpList.Test
         [Test]
         public void OneOff()
         {
-            var f = @"C:\Users\eric\Desktop\NEW TYPES_1b4dd67f29cb1962.automaticDestinations-ms";
+            var f = @"c:\temp\12dc1ea8e34b5a6.automaticDestinations-ms";
 
 
             var raw = File.ReadAllBytes(f);
