@@ -104,6 +104,7 @@
 337ed59af273c758|Sticky Notes
 337ed59af273c758|Sticky Notes (Windows 10)
 3461e4d1eb393c9c|WTW 0.8.18.2852 / 0.8.19.2940
+353e9052cccbec5d|Kindle for PC 1.21.0
 3594aab44bca414b|Windows Photo Viewer
 36801066f71b73c5|Binbot 2.0
 36c36598b08891bf|Vovox 2.5.3.4250
@@ -156,12 +157,15 @@
 4b632cf2ceceac35|Robo-FTP Server 3.2.5
 4b6925efc53a3c08|BCWipe 5.02.2 Task Manager 3.02.3
 4b6925efc53a3c08|BCWipe Task Manager 3.02.3 / 3.06.5.5
+4b8a4727aa452343|Firefox 56.0.2
+4c58cf9096ef3efd|Kindle for PC 1.24.3 
 4cdf7858c6673f4b|Bullet Proof FTP 1.26
 4d72cfa1d0a67418|Newsgroup Image Collector
 4d7bdaea55ad352|PeaZip 6.0.0
 4d8bdacf5265a04f|The KMPlayer 2.9.4.1434
 4dd48f858b1a6ba7|Free Download Manager 3.0 (Build 852)
 4e0ac37db19cba15|Xfire 1.138 (Build 44507)
+4e538fde985a3c01|Torch Browser 65.0.0.1614 (x86)
 4f24a7b84a7de5a6|Palringo 2.6.3 (r45983)
 4fceec8e021ac978|CoffeeCup Free FTP 3.5.0.0
 4fd44f9938892caa|CDBurnerXP
@@ -182,6 +186,7 @@
 5b186fc4a0b40504|Dtella 1.2.5 (Purdue network only)
 5b72f67adcce9045|UltraVNC 1.2.1.0 Settings
 5b7f3287093c1623|Total Commander 8.52a 64-bit
+5bb830f67194431a|7-Zip 18.05 (x64)
 5c450709f7ae4396|Firefox 1.0 / 2.0 / 3.0
 5c450709f7ae4396|Firefox 3.6.13 (32-bit)
 5d696d521de238c3|Chrome 9.0.597.84 / 12.0.742.100 / 13.0.785.215
@@ -196,6 +201,7 @@
 5f6e7bc0fb699772|Microsoft Office PowerPoint 2010 x64
 5f7b5f1e01b83767|HAMBONE
 5fb817cd5a8cad21|Google Drive
+5fd959f6fe6b8ae7|PuTTY 0.70 (x64)
 6059df4b02360af|Kadu 0.10.0 / 0.6.5.5
 606a33f5a27b57d4|Microsoft Built-in Computer Management 10.0.10011.16384 (Win10)
 6224453d9701a612|BinTube 3.7.1.0 (requires VLC 10.5!)
@@ -204,8 +210,10 @@
 62dba7fb39bb0adc|Yahoo Messenger 7.5.0.647 / 8.1.0.421 / 9.0.0.2162 / 10.0.0.1270
 65009083bfa6a094|(app launched via XPMode)
 65f7dd884b016ab2|LimeChat 2.39
+669967f27afdebec|NirSoft PstPassword 1.20 (x86)
 6728dd69a3088f97|Command Prompt
 6728dd69a3088f97|Windows Command Processor - cmd.exe (64-bit)
+6824f4a902c78fbd|Firefox 64.0
 689319b6547cda85|emesene 2.11.7
 6a316aa67a46820b|Core FTP LE 1.3c (Build 1437) / 2.2 (Build 1689)
 6a8b377d0f5cb666|WinSCP 2.3.0 (Build 146)
@@ -218,11 +226,13 @@
 6d2bac8f1edf6668|Microsoft Outlook 2013 32-bit
 6d2bac8f1edf6668|Microsoft Outlook 2016 64-bit
 6e855c85de07bc6a|Microsoft Office Excel 2010 x64
+6e9a79992da9ea2|Nokia PC Suite 7.1
 6e9d40a4c63bb562|Real Player Alternative 1.25 (Media Player Classic 6.4.8.2 / 6.4.9.0)
 6f647f9488d7a|AIM 7.5.11.9 (custom AppID + JL support)
 6fee01bd55a634fe|Smuxi 0.8.0.0
 7010c278903c2b0f|Adobe Acrobat XI Pro 32-bit
 70b52cf73249257|Sococo 1.5.0.2274
+70d9ada92108d731|IrfanView 4.51 (x64)
 714b179e552596df|Bullet Proof FTP 2.4.0 (Build 31)
 7192f2de78fd9e96|TIFNY 5.0.3
 728008617bc3e34b|eM Client 3.0.10206.0
@@ -252,13 +262,14 @@
 7a7c60efd66817a2|Spotnet 1.7.4
 7a8db574299c8568|Windows Movie Maker 2012 (build 16.4.3528.0331)
 7b2b4f995b54387d|News Reactor 20100224.16
+7b4d500e147e4391|Tor Browser 8.0.4 (x64)
 7b7f65aaeca20a8c|Dropbox App 5.4.24
 7c2916afd6f116a6|LibreOffice 5.1.0.3 Base
 7cb0735d45243070|CDisplay 1.8.1.0
 7dca40fd2a5a971f|LibreOffice 5.1.0.3
 7e4dca80246863e3|Control Panel
-7e4dca80246863e3|Control Panel - Settings
 7e4dca80246863e3|Control Panel (?)
+7e4dca80246863e3|Control Panel - Settings
 7fd04185af357bd5|UltraLeeacher 1.7.0.2969 / 1.8 Beta (Build 3490)
 8172865a9d5185cb|Binreader 1.0 (Beta 1)
 817bb211c92fd254|GOM Player 2.0.12.3375 / 2.1.28.5039
@@ -274,12 +285,14 @@
 86b804f7a28a3c17|Miranda IM 0.6.8 / 0.7.6 / 0.8.27 / 0.9.9 / 0.9.29
 86b804f7a28a3c17|Miranda IM 0.6.8 / 0.7.6 / 0.8.27 / 0.9.9 / 0.9.29 (ANSI + Unicode)
 884fd37e05659f3a|VZOchat 6.3.5
+888f2fa044591eda|Twitter - Trusted Microsoft Store App (Win10)
 8904a5fd2d98b546|IceChat 7.70 20101031
 89b0d939f117f75c|Adobe Acrobat 9 Pro Extended (32-bit)
 8a1c1c7c389a5320|Safari 3.2.3 (525.29)
 8a461f82e9eb4102|Foxit Reader 7.2.0.722
 8bd5c6433ca967e9|ACDSee Photo Manager 2009 (v11.0 Build 113)
 8c816c711d66a6b5|MSN Messenger 6.2.0137 / 7.0.0820
+8dcca8b24a5e822e|CDBurnerXP 4.5.7.6623
 8deb27dfa31c5c2a|CoffeeCup Free FTP 4.4 (Build 1904)
 8eafbd04ec8631ce|VMware Workstation 11.0.0 build-2305329
 8eafbd04ec8631ce|VMware Workstation 9 x64
@@ -290,9 +303,11 @@
 8fdb062f1e486cac|Microsoft Powerpoint 2013 32-bit
 9027fe24326910d2|Thunderbird 38.6.0
 905c98e216107aa1|Microsoft Lync 2013 15.0.4753.1000
+9077b9c9cf187cc2|KeePass 1.36
 90e5e8b21d7e7924|Winamp 3.0d (Build 488)
 918e0ecb43d17e23|Notepad (32-bit)
 92f1d5db021cd876|NewsLeecher 4.0 / 5.0 Beta 6
+939c10c2c101c1b0|Stickies 9.0d
 93b18adf1d948fa3|qutIM 0.2
 954ea5f70258b502|Windows Script Host - wscript.exe (32-bit)
 9560577fd87cf573|LeechFTP 1.3 (Build 207)
@@ -314,11 +329,13 @@
 9c08ad74ad8708df|Microsoft Publisher 2016 64-bit
 9c32e2313792e6e8|Microsoft Built-in Disk Cleanup (Win10)
 9c7cc110ff56d1bd|Microsoft Office PowerPoint 2010 x86
+9ce6555426f54b46|HxD 1.7.7.0
 9d1f905ce5044aee|Edge Browser
 9d78513a8998829c|Microsoft Built-in Run Dialog (Win7 + Win10)
 9d91276b0be3e46b|Windows Help and Support (Built-in) Win7
 9dacebaa9ac8ca4e|TLNews Newsreader 2.2.0 (Build 2430)
 9e0b3f677a26bbc4|BitKinex 3.2.3
+9edafe4ba4b22ce7|Eclipse IDE Oxygen (4.7.3a)
 9f03ae476ad461fa|GroupsAloud 1.0
 9f5c7755804b850a|Windows Script Host - wscript.exe (64-bit)
 9fda41b86ddcf1db|VLC 0.5.3 / 0.8.6i / 0.9.7 / 1.1.11
@@ -326,6 +343,7 @@
 9fdb10e18cdd0101|Cisco AnyConnect Secure Mobility Client 3.1.02040
 a028c9db28aa15a3|Piriform Defraggler 2.20.989 64-bit
 a0d6b1b874c6e9d2|TOR Browser 6.0.2
+a10b45adb36c1d27|PST Walker 5.54
 a18df73203b0340e|Microsoft Word 2016
 a1d19afe5a80f80|FileZilla 2.2.32
 a2c73c383525f1bb|RealVNC Viewer 5.3.0 64-bit
@@ -485,6 +503,7 @@ d8671c1ed93c75c8|Tor Browser 5.5.2
 d93f411851d7c929|Windows Powershell 5.0 32-bit
 d97efdf3888fe7eb|KeePass 2.31
 da7e8de5b8273a0f|Yahoo Messenger 5.0.0.1226 / 6.0.0.1922
+db3b8d985f0668e|FreeFileSync 10.7
 dba909a61476ccec|NewsWolf 1.41
 dc64de6c91c18300|Brosix Communicator 3.1.3 (Build 110719 nid 1)
 dd658a07478b46c2|PIRCH98 1.0.1.1190
@@ -528,7 +547,9 @@ ecdd9154e84d5544|Wickr Top Secret Messenger Desktop 2.3.5
 ed49e1e6ccdba2f5|GNUnet 0.8.1a
 ed7a5cc3cca8d52a|CCleaner 1.32.345 / 1.41.544 / 2.36.1233 / 3.10.1525
 edc786643819316c|HoneyView3 #5834
+ee0c103672a7a2b9|ManyCam 6.7.0
 ee462c3b81abb6f6|Adobe Reader X 10.1.0
+ef473fab8120b354|uTorrent 3.5.5
 ef606b196796ebb|HP MediaSmart Photo
 efb08d4e11e21ece|Paltalk Messenger 10.0 (Build 409)
 efbb2bf3c1d06466|Auslogics Disk Defrag 6.2.1.0
@@ -544,6 +565,7 @@ f1a4c04eebef2906|[i2p] Robert 0.0.29 Preferences
 f214ca2dd40c59c1|FrostWire 4.20.9
 f2cb1c38ab948f58|X-Chat 1.8.10 / 2.6.9 / 2.8.9
 f5ac5390b9115fdb|Microsoft Office PowerPoint 2007
+f5e4e50707bcd215|Microsoft Message Analyzer 1.4
 f61b65550a84027e|iMesh 11.0.0.112351
 f64de962764b9b0f|FTPRush 1.1.3 / 2.15
 f674c3a77cfe39d0|Winamp 2.95 / 5.1 / 5.621
@@ -566,7 +588,9 @@ fb3b0dbfee58fac8|Microsoft Office Word 365 x86
 fb3b0dbfee58fac8|Microsoft Word 2016 64-bit
 fb7ca8059b8f2123|ooVoo 3.0.7.21
 fc999f29bc5c3560|Robo-FTP 3.7.9
+fd1ad55e472f20e0|Google Earth Pro 7.3.2.5491
 fdbaca0a1fce6055|MozBackup 1.5.1
+fe57f5df17b45fe|Wireshark 2.6.3
 fe5e840511621941|JetAudio 5.1.9.3018 Basic / 6.2.5.8220 Basic / 7.0.0 Basic / 8.0.16.2000 Basic
 fe8bb4692de7b989|Smart Defrag 4.3.0.847
 fe9e0f7260000a12|RealVNC Server 5.3.0 64-bit (Connect+File Transfer)
