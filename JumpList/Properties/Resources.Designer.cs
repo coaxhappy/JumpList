@@ -19,7 +19,7 @@ namespace JumpList.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,19 +61,19 @@ namespace JumpList.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 19e6043495a5b4da|Edit Pad Pro
-        ///5c450709f7ae4396|Firefox 1.0 / 2.0 / 3.0
-        ///1bc9bbbe61f14501|OneNote
-        ///16ec093b8f51508f|Opera 8.54 build 7730 / 9.64 build 10487 / 11.50 build 1074
+        ///   Looks up a localized string similar to 0006f647f9488d7a|AIM 7.5.11.9 (custom AppID + JL support)
+        ///00098b0ef1c84088|fulDC 6.78
         ///012dc1ea8e34b5a6|Microsoft Paint 6.1
+        ///01b29f0dc90366bb|AIM 5.9.3857
+        ///03d877ec11607fe4|Thunderbird 6.0.2
+        ///044a50e6c87bc012|Classic FTP Plus 2.15
         ///050620fe75ee0093|VMware Player 3.1.4
-        ///10f5a20c21466e85|FTP Voyager 15.2.0.17
-        ///1110d9896dceddb3|imgSeek 0.8.5
-        ///135df2a440abe9bb|SoulSeek 156c
-        ///13eb0e5d9a49eaef|Binjet 3.0.2
-        ///1434d6d62d64857d|BitLord 1.2.0-66
-        ///1461132e553e2e6c|Firefox 6.0
-        ///169b3be0bc43d592|FastPictureViewer Professional 1.6 (Build  [rest of string was truncated]&quot;;.
+        ///05e01ecaf82f7d8e|Scour Exchange 0.0.0.228
+        ///06059df4b02360af|Kadu 0.10.0 / 0.6.5.5
+        ///070b52cf73249257|Sococo 1.5.0.2274
+        ///0a1d19afe5a80f80|FileZilla 2.2.32
+        ///0a79a7ce3c45d781|CuteFTP 7.1 (Build 06.06.2005.1)
+        ///0b17d3d0c9ca7e29|Document ViewerPica [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string AppIDs {
             get {
