@@ -199,7 +199,7 @@
 5e01ecaf82f7d8e|Scour Exchange 0.0.0.228
 5ea2a50c7979fbdc|TrustyFiles 3.1.0.22
 5f6e7bc0fb699772|Microsoft Office PowerPoint 2010 x64
-5f7b5f1e01b83767|HAMBONE
+5f7b5f1e01b83767|Quick Access
 5fb817cd5a8cad21|Google Drive
 5fd959f6fe6b8ae7|PuTTY 0.70 (x64)
 6059df4b02360af|Kadu 0.10.0 / 0.6.5.5
