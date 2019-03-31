@@ -1,4 +1,4 @@
-0006f647f9488d7a|AIM 7.5.11.9 (custom AppID + JL support)
+﻿0006f647f9488d7a|AIM 7.5.11.9 (custom AppID + JL support)
 00098b0ef1c84088|fulDC 6.78
 012dc1ea8e34b5a6|Microsoft Paint 6.1
 01b29f0dc90366bb|AIM 5.9.3857

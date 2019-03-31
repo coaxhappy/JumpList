@@ -12,7 +12,7 @@ namespace JumpList
         public AppIDList()
         {
             //load included
-            string[] stringSeparators = {"\r\n"};
+            string[] stringSeparators = { "\r\n", "\n" };
 
             var lines = Resources.AppIDs.Split(stringSeparators, StringSplitOptions.None);
 
@@ -38,7 +38,7 @@ namespace JumpList
             return desc;
         }
 
-        private int IterateLines(IEnumerable<string> lines)
+        private int IterateLines(string[] lines)
         {
             var added = 0;
 
@@ -54,10 +54,10 @@ namespace JumpList
                 var id = segs[0].Trim().ToLowerInvariant();
                 var desc = segs[1].Trim();
 
-//                if (id.Length != 16)
-//                {
-//                    continue;
-//                }
+                if (id.Length != 16)
+                {
+                    continue;
+                }
 
                 if (AppIDs.ContainsKey(id) == false)
                 {
