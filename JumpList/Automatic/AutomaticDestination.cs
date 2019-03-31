@@ -82,6 +82,8 @@ namespace JumpList.Automatic
                     }
                 }
             }
+
+            PinnedDestListCount = DestListEntries.Count(ele => ele.Pinned);
         }
 
         public List<DirectoryEntry> Directory { get; }
