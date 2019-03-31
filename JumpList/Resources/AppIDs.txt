@@ -596,3 +596,5 @@ fe8bb4692de7b989|Smart Defrag 4.3.0.847
 fe9e0f7260000a12|RealVNC Server 5.3.0 64-bit (Connect+File Transfer)
 ff103e2cc310d0d|Adobe Reader XI
 ff224628f0e8103c|Morpheus 3.0.3.6
+b08971c77377bde3|Visual Studio 2015 Enterprise Version 14.0 Update 3
+c31b3d36438b5e2c|Visual Studio 2017 Enterprise Version 15.9.10
