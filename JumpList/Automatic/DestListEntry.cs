@@ -9,8 +9,12 @@ namespace JumpList.Automatic
 {
     public class DestListEntry
     {
-        public DestListEntry(byte[] rawBytes, int version, int mruPosition)
+        public DestListEntry(byte[] rawBytes, int version, int mruPosition, short pathSize, int entrySize)
         {
+            Version = version;
+            PathSize = pathSize;
+            EntrySize = entrySize;
+
             MRUPosition = mruPosition;
 
             Checksum = BitConverter.ToInt64(rawBytes, 0);
@@ -47,6 +51,7 @@ namespace JumpList.Automatic
 
             if (version > 1)
             {
+                Unknown1 = BitConverter.ToInt32(rawBytes, 112);
                 Unknown2 = BitConverter.ToInt32(rawBytes, 116);
                 Unknown3 = BitConverter.ToInt32(rawBytes, 120);
                 Unknown4 = BitConverter.ToInt32(rawBytes, 124);
@@ -54,12 +59,14 @@ namespace JumpList.Automatic
                 var v3PathLen = BitConverter.ToInt16(rawBytes, 128) * 2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 130, v3PathLen);
+                RawPath = Path;
             }
             else
             {
                 var v1PathLen = BitConverter.ToInt16(rawBytes, 112) * 2;
 
                 Path = Encoding.Unicode.GetString(rawBytes, 114, v1PathLen);
+                RawPath = Path;
             }
 
             if (Path.StartsWith("knownfolder"))
@@ -118,6 +125,12 @@ namespace JumpList.Automatic
             CreationTime = GetDateTimeOffsetFromGuid(FileDroid);
         }
 
+        public int Version { get; set; }
+
+        public short PathSize { get; }
+
+        public int EntrySize { get; }
+
         public long Checksum { get; }
         public int EntryNumber { get; }
         public int MRUPosition { get; }
@@ -125,10 +138,14 @@ namespace JumpList.Automatic
         public Guid FileDroid { get; }
         public string Hostname { get; }
         public DateTimeOffset LastModified { get; }
+
+        internal string RawPath { get; }
         public string Path { get; }
         public int PinStatus { get; }
         public int Unknown0 { get; }
         public float AccessCount { get; }
+
+        public int Unknown1 { get; }
         public int Unknown2 { get; }
         public int Unknown3 { get; }
         public int Unknown4 { get; }
@@ -186,6 +203,53 @@ namespace JumpList.Automatic
             sb.AppendLine($"Unknown4: {Unknown4}");
 
             return sb.ToString();
+        }
+
+        public byte[] ToBuffer()
+        {
+            List<byte> bufferList = new List<byte>();
+
+            bufferList.AddRange(BitConverter.GetBytes(Checksum));
+            bufferList.AddRange(VolumeDroid.ToByteArray());
+            bufferList.AddRange(FileDroid.ToByteArray());
+            bufferList.AddRange(VolumeBirthDroid.ToByteArray());
+            bufferList.AddRange(FileBirthDroid.ToByteArray());
+
+            byte[] tempBuffer = Encoding.GetEncoding(1252).GetBytes(Hostname);
+            byte[] hostNameBuffer = new byte[16];
+            Buffer.BlockCopy(tempBuffer, 0, hostNameBuffer, 0, tempBuffer.Length);
+            bufferList.AddRange(hostNameBuffer);
+
+            bufferList.AddRange(BitConverter.GetBytes(EntryNumber));
+            bufferList.AddRange(BitConverter.GetBytes(Unknown0));
+            bufferList.AddRange(BitConverter.GetBytes(AccessCount));
+            bufferList.AddRange(BitConverter.GetBytes(LastModified.ToFileTime()));
+            bufferList.AddRange(BitConverter.GetBytes(PinStatus));
+
+            if (this.Version > 1)
+            {
+                bufferList.AddRange(BitConverter.GetBytes(Unknown1));
+                bufferList.AddRange(BitConverter.GetBytes(Unknown2));
+                bufferList.AddRange(BitConverter.GetBytes(Unknown3));
+                bufferList.AddRange(BitConverter.GetBytes(Unknown4));
+                bufferList.AddRange(BitConverter.GetBytes(PathSize));
+
+                byte[] pathBuffer = new byte[PathSize * 2];
+                byte[] tempPathBuffer = Encoding.Unicode.GetBytes(RawPath);
+                Buffer.BlockCopy(tempPathBuffer, 0, pathBuffer, 0, tempPathBuffer.Length);
+                bufferList.AddRange(pathBuffer);
+
+                bufferList.AddRange(new byte[4] { 0, 0, 0, 0 });
+            }
+            else
+            {
+                byte[] pathBuffer = new byte[PathSize * 2];
+                byte[] tempPathBuffer = Encoding.Unicode.GetBytes(RawPath);
+                Buffer.BlockCopy(tempPathBuffer, 0, pathBuffer, 0, tempPathBuffer.Length);
+                bufferList.AddRange(pathBuffer);
+            }
+
+            return bufferList.ToArray();
         }
     }
 }

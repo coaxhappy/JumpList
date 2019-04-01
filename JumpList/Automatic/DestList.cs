@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace JumpList.Automatic
 {
@@ -16,7 +17,7 @@ namespace JumpList.Automatic
             Header = new DestListHeader(headerBytes);
 
             var index = 32;
-            var pathSize = 0;
+            short pathSize = 0;
             var entrySize = 0;
 
             var mruPos = 0;
@@ -34,7 +35,7 @@ namespace JumpList.Automatic
                     var entryBytes1 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes1, 0, entrySize);
 
-                    var entry1 = new DestListEntry(entryBytes1, Header.Version, mruPos);
+                    var entry1 = new DestListEntry(entryBytes1, Header.Version, mruPos, pathSize, entrySize);
 
                     Entries.Add(entry1);
 
@@ -59,7 +60,7 @@ namespace JumpList.Automatic
                     var entryBytes2 = new byte[entrySize];
                     Buffer.BlockCopy(rawBytes, index, entryBytes2, 0, entrySize);
 
-                    var entry2 = new DestListEntry(entryBytes2, Header.Version, mruPos);
+                    var entry2 = new DestListEntry(entryBytes2, Header.Version, mruPos, pathSize, entrySize);
 
                     Entries.Add(entry2);
 
@@ -88,6 +89,24 @@ namespace JumpList.Automatic
             }
 
             return sb.ToString();
+        }
+
+        public byte[] ToBuffer()
+        {
+            List<byte> byteList = new List<byte>();
+
+            int entryNumber = Entries.Count;
+            int entryPinnedNummber = Entries.Count(ele => ele.PinStatus != -1);
+            Header.RefreshHeader(entryNumber, entryPinnedNummber);
+
+            byteList.AddRange(Header.ToBuffer());
+
+            foreach (var item in Entries)
+            {
+                byteList.AddRange(item.ToBuffer());
+            }
+
+            return byteList.ToArray();
         }
     }
 }

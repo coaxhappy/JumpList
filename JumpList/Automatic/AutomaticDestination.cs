@@ -53,6 +53,7 @@ namespace JumpList.Automatic
                 DestListCount = DestList.Header.NumberOfEntries;
                 DestListVersion = DestList.Header.Version;
                 LastUsedEntryNumber = DestList.Header.LastEntryNumber;
+                PinnedDestListCount = DestList.Header.NumberOfPinnedEntries;
 
                 foreach (var entry in DestList.Entries)
                 {
@@ -82,8 +83,6 @@ namespace JumpList.Automatic
                     }
                 }
             }
-
-            PinnedDestListCount = DestListEntries.Count(ele => ele.Pinned);
         }
 
         public List<DirectoryEntry> Directory { get; }

@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace JumpList.Automatic
@@ -18,8 +21,8 @@ namespace JumpList.Automatic
         }
 
         public int Version { get; }
-        public int NumberOfEntries { get; }
-        public int NumberOfPinnedEntries { get; }
+        public int NumberOfEntries { get; private set; }
+        public int NumberOfPinnedEntries { get; private set; }
         public float UnknownCounter { get; }
         public int LastEntryNumber { get; }
         public int Unknown1 { get; }
@@ -40,6 +43,28 @@ namespace JumpList.Automatic
             sb.AppendLine($"Unknown2: {Unknown2}");
 
             return sb.ToString();
+        }
+
+        public void RefreshHeader(int entryNumber, int entryPinnedNumber)
+        {
+            NumberOfEntries = entryNumber;
+            NumberOfPinnedEntries = entryPinnedNumber;
+        }
+        
+        public byte[] ToBuffer()
+        {
+            List<byte> byteList = new List<byte>();
+
+            byteList.AddRange(BitConverter.GetBytes(Version).ToList());
+            byteList.AddRange(BitConverter.GetBytes(NumberOfEntries));
+            byteList.AddRange(BitConverter.GetBytes(NumberOfPinnedEntries));
+            byteList.AddRange(BitConverter.GetBytes(UnknownCounter));
+            byteList.AddRange(BitConverter.GetBytes(LastEntryNumber));
+            byteList.AddRange(BitConverter.GetBytes(Unknown1));
+            byteList.AddRange(BitConverter.GetBytes(LastRevisionNumber));
+            byteList.AddRange(BitConverter.GetBytes(Unknown2));
+
+            return byteList.ToArray();
         }
     }
 }
